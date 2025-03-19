@@ -1,0 +1,23 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int maxWaterContainer(vector<int>& height){
+	int lp = 0, rp = height.size()-1,maxWater = 0;
+	
+	int w,h,currWater;
+	while(lp<rp){
+		w = rp-lp;
+		h = min(height[rp],height[lp]);
+		currWater = h*w;
+		maxWater = max(currWater , maxWater);
+		lp<rp?lp++:rp--;
+		
+	}
+	return maxWater;
+}
+int main(){
+	vector<int> height = {1,8,6,2,5,4,8,3,7};
+	cout<<"The volume of water the largest container possible can hold is: "<<maxWaterContainer(height);
+	
+}
