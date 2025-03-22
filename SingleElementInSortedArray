@@ -1,0 +1,43 @@
+#include<iostream>
+#include<vector>
+using namespace std;
+
+int singleElementInSortedArray(vector<int>& A){
+	int n = A.size();
+    if(n==1) return A[0];   // corner case for a single element array
+    int st = 0, end =n-1;
+    while(st<=end){
+        int mid = st+(end-st)/2;
+        if(mid == 0 && A[0]!=A[1] ) return A[0];    // to check for the first element to be the ans
+        if(mid == n-1 && A[n-1]!=A[n-2]) return A[n-1]; // to check for the last element to be the ans
+    
+	    if(A[mid]!=A[mid-1] && A[mid]!= A[mid+1]){ // if not matching to left and right then it is the answer
+            return A[mid];
+        }else{
+            if(mid%2==0){   // even index of mid means even elements in the left and right of the mid
+                if(A[mid]==A[mid-1]){ // matching to left make the left odd so we have have to search in the left
+                    end = mid-1;
+                }else{      // the right is odd so we have to search in the right
+                    st = mid+1;
+                }
+            }else{      // odd index of mid means odd elements in the left and right of the mid
+                if(A[mid]==A[mid-1]){ // makes the left even so we have to search in the right
+                    st = mid +1;
+                }else{      // makes the right one even so we have to search in the left
+                    end = mid -1;
+                }
+            }
+        }
+    }
+    return -1;
+}
+
+int main(){
+	
+	vector<int> arr  = {1,1,2,2,3,4,4,8,8};
+	cout<<singleElementInSortedArray(arr);
+		
+	
+	
+	return 0;
+}
